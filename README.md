@@ -2,6 +2,11 @@
 
 一个基于 Vue 3 + Pinia + Vite 构建的任务看板（Kanban）应用，支持任务的增删改查、看板拖拽分类、仪表盘统计以及明暗主题切换。
 
+## 相关文档
+
+- 需求 Prompt 汇总：[docs/task-manager-prompts.md](docs/task-manager-prompts.md)
+- 功能展示截图：[screenshot/](screenshot/)
+
 ## 功能特性
 
 - **任务管理**：创建、编辑、删除任务，支持标题、描述、状态（待办 / 进行中 / 完成）和优先级（高 / 中 / 低）
@@ -59,3 +64,4 @@ src/
 ├── utils/              # 工具函数（本地存储、校验）
 └── views/              # 页面视图
 ```
+
