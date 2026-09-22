@@ -359,6 +359,7 @@ Expected: 退出码 0，无模块解析错误。
 
 ```vue
 <script setup>
+import { computed } from 'vue'
 import { TASK_PRIORITY, TASK_PRIORITY_LABELS } from '../../utils/validators'
 
 const props = defineProps({
@@ -367,13 +368,18 @@ const props = defineProps({
 
 const emit = defineEmits(['edit', 'delete', 'dragstart'])
 
-const priorityLabel = TASK_PRIORITY_LABELS[props.task.priority] || ''
+// 徽章文案与颜色必须用 computed：updateTask 以 Object.assign 原地修改任务对象，
+// 若在 setup 顶层一次性计算，编辑优先级后徽章不会响应式刷新。
+const priorityLabel = computed(() => TASK_PRIORITY_LABELS[props.task.priority] || '')
 
-const badgeClass = {
-  [TASK_PRIORITY.HIGH]: 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200',
-  [TASK_PRIORITY.MEDIUM]: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-200',
-  [TASK_PRIORITY.LOW]: 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200',
-}[props.task.priority] || ''
+const badgeClass = computed(() => {
+  const classes = {
+    [TASK_PRIORITY.HIGH]: 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200',
+    [TASK_PRIORITY.MEDIUM]: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-200',
+    [TASK_PRIORITY.LOW]: 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200',
+  }
+  return classes[props.task.priority] || ''
+})
 
 function onDragStart(e) {
   e.dataTransfer.effectAllowed = 'move'
