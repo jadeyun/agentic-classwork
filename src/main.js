@@ -5,9 +5,18 @@ import App from './App.vue'
 import router from './router'
 import './assets/styles/index.css'
 
-const app = createApp(App)
+import { useTaskStore } from './stores/task'
+import { useUiStore } from './stores/ui'
 
-app.use(createPinia())
+const app = createApp(App)
+const pinia = createPinia()
+
+app.use(pinia)
 app.use(router)
+
+const taskStore = useTaskStore(pinia)
+const uiStore = useUiStore(pinia)
+taskStore.load()
+uiStore.initDarkMode()
 
 app.mount('#app')

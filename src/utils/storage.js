@@ -1,10 +1,20 @@
-// localStorage 持久化封装骨架；读写逻辑在后续执行阶段实现。
+// localStorage 持久化封装：读写均容错；读失败回退 null，写失败静默降级为内存态。
 export const STORAGE_KEY = 'task-manager'
+export const UI_STORAGE_KEY = 'task-manager-ui'
 
-export function loadState() {
-  return null
+export function loadState(key) {
+  try {
+    const raw = localStorage.getItem(key)
+    return raw ? JSON.parse(raw) : null
+  } catch (e) {
+    return null
+  }
 }
 
-export function saveState() {
-  // 后续执行阶段：将状态序列化写入 localStorage。
+export function saveState(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value))
+  } catch (e) {
+    // 存储不可用时静默忽略，不阻断交互。
+  }
 }
