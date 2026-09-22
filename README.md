@@ -1,4 +1,4 @@
-# agentic-classwork
+# task manager
 
 一个基于 Vue 3 + Pinia + Vite 构建的任务看板（Kanban）应用，支持任务的增删改查、看板拖拽分类、仪表盘统计以及明暗主题切换。
 
