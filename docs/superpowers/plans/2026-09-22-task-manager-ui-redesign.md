@@ -289,7 +289,7 @@ function onSubmit(payload) {
       </button>
     </div>
 
-    <div class="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
+    <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
       <KanbanColumn
         v-for="col in columns"
         :key="col.status"
