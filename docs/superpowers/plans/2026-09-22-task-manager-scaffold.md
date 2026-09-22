@@ -19,7 +19,8 @@
 - 路由：vue-router，路由配置位于 `src/router/index.js`。
 - 数据持久化：localStorage（封装为 `src/utils/storage.js`，本轮仅占位签名）。
 - 本轮边界：只搭骨架，不实现任务 CRUD、三状态、优先级、看板拖拽、深色模式、持久化逻辑。
-- Git：本 clarify 阶段只读；`git commit`（提交信息 `init project scaffold`）延后到执行节点执行。
+- 环境前置：执行节点需先安装 Node.js（LTS 20.x）与 npm（当前环境未安装，`command -v node` 为空；用户已授权安装）。所有 `npm` 命令前用 `node -v`、`npm -v` 确认可用。
+- Git：clarify / plan 阶段只读；`git commit`（提交信息 `init project scaffold`）延后到执行节点执行。
 - 命名与文案：应用标题为「任务管理应用」；页面语言为简体中文。
 
 ---
@@ -165,7 +166,20 @@ dist
 *.local
 ```
 
-- [ ] **Step 7: 验证（依赖安装）**
+- [ ] **Step 7: 环境前置（安装 Node.js / npm）**
+
+当前环境未安装 Node/npm（`command -v node` 为空），需先安装；用户已授权。使用 nvm 安装 Node.js LTS（20.x）：
+
+```bash
+command -v nvm >/dev/null 2>&1 || curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+nvm install 20
+node -v && npm -v
+```
+
+Expected: `node -v` 输出 `v20.x.x`，`npm -v` 输出 ≥10.0.0。
+
+- [ ] **Step 8: 验证（依赖安装）**
 
 Run: `npm install`
 Expected: 退出码 0，生成 `node_modules/` 与 `package-lock.json`。
@@ -470,7 +484,7 @@ Expected: 返回包含 `<div id="app"></div>` 与入口脚本的 HTML。
 
 ### Task 8: 提交本轮结果
 
-> 注意：本步骤在**执行节点**执行（该节点已开放 Git 写操作）。当前 clarify 阶段 Git 只读，严禁在任何更早的任务中提交。
+> 注意：本步骤在**执行节点**执行（该节点已开放 Git 写操作）。当前 clarify / plan 阶段 Git 只读，严禁在任何更早的任务中提交。
 
 - [ ] **Step 1: 查看变更**
 
@@ -493,6 +507,6 @@ Expected: 最新一条为 `init project scaffold`。
 
 ## Self-Review
 
-- **Spec coverage**：spec 第 4 节目录结构与 File Structure 一一对应；第 2 节技术选型在 Task 1 配置中落实；第 6 节 YAGNI 边界通过占位签名（不实现逻辑）满足；第 7 节验证方式由 Task 7 覆盖；第 8 节 commit 延后由 Task 8 + Global Constraints 覆盖。
+- **Spec coverage**：spec 第 4 节目录结构与 File Structure 一一对应；第 2 节技术选型在 Task 1 配置中落实；第 6 节 YAGNI 边界通过占位签名（不实现逻辑）满足；第 7 节验证方式由 Task 7 覆盖；第 8 节 commit 延后由 Task 8 + Global Constraints 覆盖；第 9 节 Node/npm 环境缺口由 Task 1 Step 7 环境前置覆盖。
 - **Placeholder scan**：无 TBD/TODO；每个代码步骤均含完整文件内容；占位函数均有明确签名与注释（属本轮 YAGNI 设计，非未填写）。
 - **Type consistency**：`useTaskStore`/`useUiStore`、`STORAGE_KEY`/`loadState`/`saveState`、`validateTaskTitle`、`AppHeader`/`AppFooter` 在定义与引用处命名一致；`HomeView` 默认导出在 Task 3 / Task 6 一致。
