@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import DashboardStats from './DashboardStats.vue'
 import KanbanColumn from './KanbanColumn.vue'
 import TaskFormModal from './TaskFormModal.vue'
 import { useTaskStore } from '../../stores/task'
@@ -45,12 +46,19 @@ function onSubmit(payload) {
 </script>
 
 <template>
-  <div class="flex flex-col gap-4">
-    <div class="flex items-center justify-between">
-      <p class="text-sm text-gray-500 dark:text-gray-400">共 {{ taskStore.tasks.length }} 个任务</p>
-      <button class="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700" @click="openCreate">新建任务</button>
+  <div class="mx-auto w-full max-w-6xl">
+    <DashboardStats />
+
+    <div class="mt-4 flex items-center justify-end">
+      <button
+        class="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-contrast transition hover:opacity-90"
+        @click="openCreate"
+      >
+        新建任务
+      </button>
     </div>
-    <div class="flex gap-4 overflow-x-auto pb-2">
+
+    <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
       <KanbanColumn
         v-for="col in columns"
         :key="col.status"
@@ -62,6 +70,7 @@ function onSubmit(payload) {
         @delete="onDelete"
       />
     </div>
+
     <TaskFormModal :open="modalOpen" :task="editingTask" @close="modalOpen = false" @submit="onSubmit" />
   </div>
 </template>

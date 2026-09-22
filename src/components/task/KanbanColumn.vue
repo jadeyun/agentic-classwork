@@ -22,10 +22,10 @@ function onDrop(e) {
 </script>
 
 <template>
-  <section class="flex w-72 shrink-0 flex-col rounded-xl bg-gray-100 p-3 dark:bg-gray-800/60">
+  <section class="flex flex-col rounded-xl bg-surface p-3">
     <header class="mb-3 flex items-center justify-between px-1">
-      <h2 class="text-sm font-semibold text-gray-700 dark:text-gray-200">{{ label }}</h2>
-      <span class="rounded-full bg-white px-2 py-0.5 text-xs text-gray-500 dark:bg-gray-700 dark:text-gray-300">{{ tasks.length }}</span>
+      <h2 class="text-sm font-semibold text-primary">{{ label }}</h2>
+      <span class="rounded-full border border-border px-2 py-0.5 text-xs text-secondary">{{ tasks.length }}</span>
     </header>
     <div class="flex min-h-24 flex-1 flex-col gap-2" @dragover="onDragOver" @drop="onDrop">
       <TaskCard
@@ -35,12 +35,24 @@ function onDrop(e) {
         @edit="emit('edit', $event)"
         @delete="emit('delete', $event)"
       />
-      <p
+      <div
         v-if="tasks.length === 0"
-        class="rounded-lg border border-dashed border-gray-300 p-4 text-center text-xs text-gray-400 dark:border-gray-600 dark:text-gray-500"
+        class="flex items-center justify-center gap-2 rounded-lg border border-dashed border-border p-4 text-xs text-secondary"
       >
-        拖拽卡片到此
-      </p>
+        <svg
+          class="h-4 w-4 shrink-0"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 5v14" />
+          <path d="m5 12 7 7 7-7" />
+        </svg>
+        暂无任务，把卡片拖到这里
+      </div>
     </div>
   </section>
 </template>

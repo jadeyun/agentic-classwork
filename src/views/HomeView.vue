@@ -5,7 +5,7 @@ import KanbanBoard from '../components/task/KanbanBoard.vue'
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col bg-gray-50 dark:bg-gray-900">
+  <div class="flex min-h-screen flex-col bg-page text-primary">
     <AppHeader />
     <main class="flex flex-1 flex-col p-4">
       <KanbanBoard />

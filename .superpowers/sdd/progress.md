@@ -1,31 +1,30 @@
 # Subagent-Driven Development — Progress Ledger
 
 Branch: AI/task-DEV-d145f874-acdb-11f1-9c08-0181fe54e476-184190ff-7b64-47a4-b465-262b49a13b1f
-Plan: docs/superpowers/plans/2026-09-22-task-manager-crud.md
-Spec: docs/superpowers/specs/2026-09-22-task-manager-crud-design.md
+Plan: docs/superpowers/plans/2026-09-22-task-manager-ui-redesign.md
+Spec: docs/superpowers/specs/2026-09-22-task-manager-ui-redesign-design.md
 
 ## Status
 
-- Task 1 (utils: storage + validators): complete — review clean.
-- Task 2 (stores: task + ui): complete — review clean.
-- Task 3 (layout: AppHeader + AppFooter + HomeView): complete — review clean.
-- Task 4-8 (task components: TaskCard / KanbanColumn / TaskFormModal / KanbanBoard + config): complete — review clean.
-- Task 9 (build + browser verification): complete — `npm run build` exit 0; browser CRUD / status+priority badge / dark-mode verified via lightpanda CDP.
-- Whole-branch review: complete — Spec ✅, Quality Approved (6 Minor, none blocking).
+- Task 1 (theme CSS variables + Tailwind semantic colors): complete — build clean.
+- Task 2 (DashboardStats component): complete — build clean, rendered correctly.
+- Task 3 (KanbanBoard stats + responsive 3-col + remove count text): complete — build clean.
+- Task 4 (KanbanColumn width + empty-state icon + theme): complete — build clean.
+- Task 5 (TaskCard hover + priority badge + theme): complete — build clean.
+- Task 6 (TaskFormModal theme): complete — build clean.
+- Task 7 (AppHeader/AppFooter/HomeView theme): complete — build clean.
+- Task 8 (full build + browser verification): complete — `npm run build` exit 0; verified with agent-browser.
+- Whole-branch review: not yet — Git write ops blocked at this pipeline node; commit deferred.
 
-Note: plan contains complete verbatim code for Tasks 1-10; implementation was transcribed directly
-rather than dispatching per-task implementer subagents (faster, lower-risk for transcription tasks).
-Per-task implementer/reviewer dispatch was therefore skipped; a whole-branch review subagent was dispatched and returned clean.
+## Verification evidence
 
-## Minor findings (recorded for future triage; none blocking)
-
-1. src/stores/task.js:load() — no per-item validation of loaded array; corrupt entries render badge-less.
-2. src/components/task/KanbanBoard.vue:onSubmit — addTask/updateTask not wrapped in try/catch (blocked by form layer normally).
-3. src/stores/task.js:updateTask — mutates caller's patch object in place (`patch.title = trimmed`).
-4. src/utils/validators.js:PRIORITY_ORDER — exported but currently unconsumed (dropdown uses Object.values(TASK_PRIORITY)).
-5. TaskCard `dragstart` emit — no parent listener; state transition handled by dataTransfer + drop.
-6. (hint) index.html lacks inline pre-hydration dark-class script; slight first-paint flash when system prefers dark.
+- `npm run build`: exit 0, no PostCSS errors.
+- Dashboard counts: seeded 5 tasks → 总数 5, 待办 2 / 进行中 2 / 完成 1, 高 1 / 中 3 / 低 1.
+- Light mode computed `--bg-page`: #F7F4EC; dark mode: #1B1E33.
+- Priority badge text 高/中/低 visible and colored per theme.
+- Responsive kanban grid: 1280px → 3 columns, 900/800px → 3 columns narrower, 520/375px → 1 column.
+- Visual screenshots captured: `/tmp/ui-light-desktop.png`, `/tmp/ui-dark-desktop.png`.
 
 ## Git
 
-- All changes remain uncommitted (working tree). Commit deferred intentionally: this pipeline node is Git read-only.
+- Changes uncommitted (working tree). Git write operations are blocked in this node.
